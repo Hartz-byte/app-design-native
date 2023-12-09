@@ -27,10 +27,21 @@ const ActiveIcon = ({ children, label, focused }) => (
       marginTop: focused ? -30 : 0,
     }}
   >
-    {children}
-    <Text style={{ color: "black", marginTop: 5, fontSize: 12 }}>
-      {label}
-    </Text>
+    <LinearGradient
+      colors={["rgba(255, 255, 255, 0.60)", "rgba(255, 255, 255, 0.20)"]}
+      style={{
+        borderRadius: 25,
+        width: 50,
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {children}
+      <Text style={{ color: "black", marginTop: 5, fontSize: 12 }}>
+        {label}
+      </Text>
+    </LinearGradient>
   </LinearGradient>
 );
 
