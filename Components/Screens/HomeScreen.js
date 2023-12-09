@@ -1,14 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import React from "react";
 
 const HomeScreen = () => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.mainContainer}>
+      <View style={styles.flex}>
+        <Text>Hi News</Text>
+        <View style={styles.flex}>
+          <TouchableOpacity>
+            <Image source={require("../../assets/Search.png")} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.soundIcon}>
+            <Image source={require("../../assets/sound.png")} />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default HomeScreen
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    marginLeft: 25,
+    marginRight: 25,
+    marginTop: 40,
+  },
+  flex: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  soundIcon: {
+    marginLeft: 15,
+  },
+});
 
-const styles = StyleSheet.create({})
+export default HomeScreen;

@@ -1,10 +1,8 @@
-// App.js
-
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Image } from "react-native";
+import { Image, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import HomeScreen from "./Components/Screens/HomeScreen";
@@ -16,21 +14,27 @@ import ProfileScreen from "./Components/Screens/ProfileScreen";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const ActiveIcon = ({ children }) => (
+// Active icon properties
+const ActiveIcon = ({ children, label, focused }) => (
   <LinearGradient
-    colors={["red", "red"]} // Use the same color for both stops to create a solid color
+    colors={focused ? ["red", "red"] : ["transparent", "transparent"]}
     style={{
-      borderRadius: 25, // half of the icon size
-      width: 50, // twice the icon size
-      height: 50, // twice the icon size
+      borderRadius: 25,
+      width: 50,
+      height: 50,
       justifyContent: "center",
       alignItems: "center",
+      marginTop: focused ? -30 : 0,
     }}
   >
     {children}
+    <Text style={{ color: "black", marginTop: 5, fontSize: 12 }}>
+      {label}
+    </Text>
   </LinearGradient>
 );
 
+// Home stack
 const HomeStack = () => (
   <Stack.Navigator>
     <Stack.Screen
@@ -45,12 +49,14 @@ const HomeStack = () => (
 
 const App = () => {
   return (
+    // Navigation
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             let iconName;
 
+            // Icons and selections
             if (route.name === "Home") {
               iconName = focused
                 ? require("./assets/house.png")
@@ -73,26 +79,25 @@ const App = () => {
                 : require("./assets/usersquare.png");
             }
 
-            if (focused) {
-              return (
-                <ActiveIcon>
-                  <Image source={iconName} style={{ width: 25, height: 25 }} />
-                </ActiveIcon>
-              );
-            }
-
-            return <Image source={iconName} style={{ width: 25, height: 25 }} />;
+            // Focussed icon
+            return (
+              <ActiveIcon focused={focused} label={route.name}>
+                <Image source={iconName} style={{ width: 25, height: 25 }} />
+              </ActiveIcon>
+            );
           },
         })}
         tabBarOptions={{
           tabBarStyle: {
-            borderTopWidth: 0, // Remove default top border
+            borderTopWidth: 0,
           },
           tabBarItemStyle: {
             flex: 1,
           },
+          showLabel: false, // hide the title
         }}
       >
+        {/* Tab's screen and its properties */}
         <Tab.Screen
           name="Home"
           component={HomeStack}
