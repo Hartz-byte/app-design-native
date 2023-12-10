@@ -8,7 +8,9 @@ import {
   Dimensions,
 } from "react-native";
 import TopHeadlines from "../ForYouComponents/TopHeadlines";
-import TrendingNewsItem from "../ForYouComponents/TrendingNews";
+import TrendingNews from "../ForYouComponents/TrendingNews";
+import Auto from "../ForYouComponents/Auto";
+import TrendingVideos from "../ForYouComponents/TrendingVideos";
 import styles from "./styles";
 
 const { width } = Dimensions.get("window");
@@ -91,7 +93,11 @@ const ForYou = () => {
   ];
 
   return (
-    <ScrollView style={styles.mainContainer}>
+    <ScrollView
+      style={styles.mainContainer}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* top headlines component */}
       <TopHeadlines
         data={data}
         activeImage={activeImage}
@@ -106,13 +112,29 @@ const ForYou = () => {
         </TouchableOpacity>
       </View>
 
+      {/* trending news component  */}
       <FlatList
         data={trendingNewsData}
         renderItem={({ item, index }) => (
-          <TrendingNewsItem key={index} item={{ ...item, index }} />
+          <TrendingNews key={index} item={{ ...item, index }} />
         )}
         keyExtractor={(item) => item.id}
       />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* auto component */}
+      <Auto />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending videos component */}
+      <TrendingVideos />
+
+      {/* border */}
+      <View style={styles.border} />
     </ScrollView>
   );
 };

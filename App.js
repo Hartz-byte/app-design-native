@@ -122,7 +122,7 @@ const App = () => {
           tabBarItemStyle: {
             flex: 1,
           },
-          showLabel: false, // hide the title
+          showLabel: false,
         }}
       >
         {/* Tab's screen and its properties */}

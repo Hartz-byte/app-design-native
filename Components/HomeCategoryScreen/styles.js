@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     letterSpacing: 0.6,
+    marginBottom: 15,
   },
   viewAllText: {
     fontSize: 12,
@@ -134,6 +135,13 @@ const styles = StyleSheet.create({
   messageText: {
     color: "white",
     fontWeight: "bold",
+  },
+  border: {
+    width: 340,
+    height: 0.5,
+    backgroundColor: "#00000080",
+    marginTop: 30,
+    marginBottom: 30,
   },
 });
 

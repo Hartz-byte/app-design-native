@@ -84,6 +84,8 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
 
+      <View style={styles.topBorder}/>
+
       {/* Render the active category */}
       {getCategoryComponent(activeCategory)}
     </View>
@@ -101,6 +103,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 27,
     letterSpacing: 0.54,
+    color: "#78CEE2"
   },
   flex: {
     flexDirection: "row",
@@ -147,6 +150,12 @@ const styles = StyleSheet.create({
   //   marginTop: 15,
   //   letterSpacing: 0.6,
   // },
+  topBorder: {
+    width: 340,
+    height: 0.5,
+    backgroundColor: "#00000080",
+    marginTop: 3,
+  },
 });
 
 export default HomeScreen;
