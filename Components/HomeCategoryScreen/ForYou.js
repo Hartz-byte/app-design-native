@@ -7,47 +7,165 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  FlatList,
 } from "react-native";
 
 const { width } = Dimensions.get("window");
 
-//horizontal line indiactor
 const ImageIndicator = ({ index, activeIndex }) => (
   <View
     style={[
       styles.imageIndicator,
       {
         backgroundColor: index === activeIndex ? "#000000" : "#B1B1B1",
-        width: index === activeIndex ? 20 : 20, // Change the width for the active indicator
+        width: 20,
       },
     ]}
   />
 );
 
+const TrendingNewsItem = ({ item }) => (
+  <TouchableOpacity style={styles.trendingNews}>
+    <Image source={item.image} style={styles.trendingImage} />
+    <View style={styles.trendingDetails}>
+      <View style={styles.flex}>
+        <Text style={styles.headText}>{item.title}</Text>
+        <TouchableOpacity>
+          <Image
+            source={require("../../assets/bookmark.png")}
+            style={styles.bookmark}
+          />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.description}>{item.description}</Text>
+      <View style={styles.trend}>
+        <View style={styles.flex}>
+          <Text style={styles.headText}>{item.publisher}</Text>
+          <View style={styles.likeIcon}>
+            <TouchableOpacity>
+              <Image source={require("../../assets/Like.png")} />
+            </TouchableOpacity>
+            <Text style={styles.number}> {item.likes} </Text>
+          </View>
+          <View style={styles.messageIcon}>
+            <TouchableOpacity>
+              <Image source={require("../../assets/message.png")} />
+            </TouchableOpacity>
+            <Text style={styles.number}> {item.comments} </Text>
+          </View>
+          <View>
+            <TouchableOpacity>
+              <Image source={require("../../assets/More.png")} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </View>
+  </TouchableOpacity>
+);
+
 const ForYou = () => {
   const [activeImage, setActiveImage] = useState(0);
-  const scrollViewRef = useRef(null);
+  const flatListRef = useRef(null);
 
-  // indicator changes
   const handleImageChange = (event) => {
     const contentOffset = event.nativeEvent.contentOffset.x;
     const imageIndex = Math.round(contentOffset / width);
     setActiveImage(imageIndex);
   };
 
-  // images scroll property
   const scrollToImage = (index) => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({
-        x: index * width,
-        animated: true,
-      });
-    }
+    flatListRef.current?.scrollToIndex({
+      index,
+      animated: true,
+    });
   };
+
+  const renderImageItem = ({ item, index }) => (
+    <TouchableOpacity onPress={() => scrollToImage(index)}>
+      <View>
+        <Image source={item.image} style={styles.image} />
+        <View style={styles.imageText}>
+          <View style={styles.categoryBox}>
+            <Text style={styles.categoryText}>{item.category}</Text>
+          </View>
+          <Text style={styles.descriptionText}>{item.description}</Text>
+          <Text style={styles.publisherText}>
+            {item.publisher}
+            <View style={styles.dot} />
+            {item.time}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const renderTrendingNewsItem = ({ item, index }) => (
+    <TrendingNewsItem item={{ ...item, index }} scrollToImage={scrollToImage} />
+  );
+
+  const data = [
+    {
+      id: "1",
+      image: require("../../assets/HeadlineImages/headline1.png"),
+      category: "Category",
+      description:
+        "Lorem ipsum dolor sit amet conse ctetur. Molestie turpis et.",
+      publisher: "Publisher",
+      time: "2h",
+    },
+    {
+      id: "2",
+      image: require("../../assets/HeadlineImages/headline2.png"),
+      category: "Category",
+      description:
+        "Lorem ipsum dolor sit amet conse ctetur. Molestie turpis et.",
+      publisher: "Publisher",
+      time: "2h",
+    },
+    {
+      id: "3",
+      image: require("../../assets/HeadlineImages/headline3.png"),
+      category: "Category",
+      description:
+        "Lorem ipsum dolor sit amet conse ctetur. Molestie turpis et.",
+      publisher: "Publisher",
+      time: "2h",
+    },
+  ];
+
+  const trendingNewsData = [
+    {
+      id: "1",
+      image: require("../../assets/TrendingNewsImages/sports.png"),
+      title: "Sports 2h",
+      description: "Lorem ipsum dolor sitamet consectetur. Donecfeugi...",
+      publisher: "Publisher",
+      likes: 5,
+      comments: 2,
+    },
+    {
+      id: "2",
+      image: require("../../assets/TrendingNewsImages/entertainment.png"),
+      title: "Entertainment 2h",
+      description: "Lorem ipsum dolor sitamet consectetur. Donecfeugi...",
+      publisher: "Publisher",
+      likes: 5,
+      comments: 2,
+    },
+    {
+      id: "3",
+      image: require("../../assets/TrendingNewsImages/technology.png"),
+      title: "Technology 2h",
+      description: "Lorem ipsum dolor sitamet consectetur. Donecfeugi...",
+      publisher: "Publisher",
+      likes: 5,
+      comments: 2,
+    },
+  ];
 
   return (
     <ScrollView style={styles.mainContainer}>
-      {/* top headlines and view all text */}
       <View style={styles.flex}>
         <Text style={styles.headlinsText}>Top Headlines</Text>
         <TouchableOpacity>
@@ -55,82 +173,37 @@ const ForYou = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Horizontal scroll with images */}
-      <ScrollView
+      <FlatList
         horizontal
+        data={data}
+        renderItem={renderImageItem}
+        keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
-        style={styles.imageContainer}
-        onScroll={handleImageChange}
         pagingEnabled
-        ref={scrollViewRef}
-      >
-        <View>
-          <Image
-            source={require("../../assets/HeadlineImages/headline1.png")}
-            style={styles.image}
-          />
-          <View style={styles.imageText}>
-            <View style={styles.categoryBox}>
-              <Text style={styles.categoryText}>Category</Text>
-            </View>
-            <Text style={styles.descriptionText}>
-              Lorem ipsum dolor sit amet conse ctetur. Molestie turpis et.
-            </Text>
-            <Text style={styles.publisherText}>
-              Publisher
-              <View style={styles.dot} /> {/* White dot */}
-              2h
-            </Text>
-          </View>
-        </View>
-        <View>
-          <Image
-            source={require("../../assets/HeadlineImages/headline2.png")}
-            style={styles.image}
-          />
-          <View style={styles.imageText}>
-            <View style={styles.categoryBox}>
-              <Text style={styles.categoryText}>Category</Text>
-            </View>
-            <Text style={styles.descriptionText}>
-              Lorem ipsum dolor sit amet conse ctetur. Molestie turpis et.
-            </Text>
-            <Text style={styles.publisherText}>
-              Publisher
-              <View style={styles.dot} /> {/* White dot */}
-              2h
-            </Text>
-          </View>
-        </View>
-        <View>
-          <Image
-            source={require("../../assets/HeadlineImages/headline3.png")}
-            style={styles.image}
-          />
-          <View style={styles.imageText}>
-            <View style={styles.categoryBox}>
-              <Text style={styles.categoryText}>Category</Text>
-            </View>
-            <Text style={styles.descriptionText}>
-              Lorem ipsum dolor sit amet conse ctetur. Molestie turpis et.
-            </Text>
-            <Text style={styles.publisherText}>
-              Publisher
-              <View style={styles.dot} /> {/* White dot */}
-              2h
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
+        ref={flatListRef}
+        onScroll={handleImageChange}
+      />
 
-      {/* Image Indicators */}
       <View style={styles.indicatorContainer}>
-        {[0, 1, 2].map((index) => (
+        {data.map((_, index) => (
           <TouchableOpacity key={index} onPress={() => scrollToImage(index)}>
             <ImageIndicator index={index} activeIndex={activeImage} />
           </TouchableOpacity>
         ))}
       </View>
+
+      <View style={styles.flex2}>
+        <Text style={styles.headlinsText}>Trending News</Text>
+        <TouchableOpacity>
+          <Text style={styles.viewAllText}>View All</Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={trendingNewsData}
+        renderItem={renderTrendingNewsItem}
+        keyExtractor={(item) => item.id}
+      />
     </ScrollView>
   );
 };
@@ -140,6 +213,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   flex: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -210,6 +284,50 @@ const styles = StyleSheet.create({
     height: 5,
     borderRadius: 2.5,
     backgroundColor: "white",
+  },
+  flex2: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 30,
+  },
+  trendingNews: {
+    marginTop: 15,
+    flexDirection: "row",
+  },
+  trendingImage: {
+    width: 90,
+    height: 100,
+  },
+  trendingDetails: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  bookmark: {
+    right: 10,
+  },
+  trend: {
+    paddingTop: 8,
+  },
+  messageIcon: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    left: 30,
+  },
+  likeIcon: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    left: 55,
+  },
+  number: {
+    marginBottom: 2,
+  },
+  headText: {
+    fontSize: 13,
+    fontWeight: "500",
+  },
+  description: {
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
 
