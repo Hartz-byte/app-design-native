@@ -11,6 +11,8 @@ import TopHeadlines from "../ForYouComponents/TopHeadlines";
 import TrendingNews from "../ForYouComponents/TrendingNews";
 import Auto from "../ForYouComponents/Auto";
 import TrendingVideos from "../ForYouComponents/TrendingVideos";
+import TrendingImages from "../ForYouComponents/TrendingImages";
+import Quotes from "../ForYouComponents/Quotes";
 import styles from "./styles";
 
 const { width } = Dimensions.get("window");
@@ -92,6 +94,45 @@ const ForYou = () => {
     },
   ];
 
+  const trendingNewsData2 = [
+    {
+      id: "1",
+      image: require("../../assets/TrendingNewsImages/sports.png"),
+      title: "Sports 2h",
+      description: "Lorem ipsum dolor sitamet consectetur. Donecfeugi...",
+      publisher: "Publisher",
+      likes: 5,
+      comments: 2,
+    },
+    {
+      id: "2",
+      image: require("../../assets/TrendingNewsImages/entertainment.png"),
+      title: "Entertainment 2h",
+      description: "Lorem ipsum dolor sitamet consectetur. Donecfeugi...",
+      publisher: "Publisher",
+      likes: 5,
+      comments: 2,
+    },
+    {
+      id: "3",
+      image: require("../../assets/TrendingNewsImages/technology.png"),
+      title: "Technology 2h",
+      description: "Lorem ipsum dolor sitamet consectetur. Donecfeugi...",
+      publisher: "Publisher",
+      likes: 5,
+      comments: 2,
+    },
+    {
+      id: "4",
+      image: require("../../assets/TrendingNewsImages/health.png"),
+      title: "Health 2h",
+      description: "Lorem ipsum dolor sitamet consectetur. Donecfeugi...",
+      publisher: "Publisher",
+      likes: 5,
+      comments: 2,
+    },
+  ];
+
   return (
     <ScrollView
       style={styles.mainContainer}
@@ -132,6 +173,62 @@ const ForYou = () => {
 
       {/* trending videos component */}
       <TrendingVideos />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending news component 2  */}
+      <FlatList
+        data={trendingNewsData2}
+        renderItem={({ item, index }) => (
+          <TrendingNews key={index} item={{ ...item, index }} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending images */}
+      <View style={styles.flex}>
+        <Text style={styles.headlinsText}>Trending Images</Text>
+        <TouchableOpacity>
+          <Text style={styles.viewAllText}>View All</Text>
+        </TouchableOpacity>
+      </View>
+      {/* component */}
+      <TrendingImages />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending news component 2  */}
+      <FlatList
+        data={trendingNewsData2}
+        renderItem={({ item, index }) => (
+          <TrendingNews key={index} item={{ ...item, index }} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* quotes section */}
+      <View style={styles.flex}>
+        <Text style={styles.headlinsText}>Quotes Of The Day</Text>
+        <TouchableOpacity>
+          <Text style={styles.viewAllText}>View All</Text>
+        </TouchableOpacity>
+      </View>
+      {/* component */}
+      <Quotes />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* auto component */}
+      <Auto />
 
       {/* border */}
       <View style={styles.border} />
