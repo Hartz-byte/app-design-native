@@ -1,12 +1,22 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import styles from "../HomeCategoryScreen/styles";
 
 const TrendingNewsItem = ({ item }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [showBookmarkMessage, setShowBookmarkMessage] = useState(false);
 
+  //bookmark toggle
   const toggleBookmark = () => {
     setIsBookmarked((prev) => !prev);
+    if (!isBookmarked) {
+      setShowBookmarkMessage(true);
+
+      // Hide the message after a specified duration
+      setTimeout(() => {
+        setShowBookmarkMessage(false);
+      }, 2000);
+    }
   };
 
   return (
@@ -15,6 +25,8 @@ const TrendingNewsItem = ({ item }) => {
       <View style={styles.trendingDetails}>
         <View style={styles.flex}>
           <Text style={styles.headText}>{item.title}</Text>
+
+          {/* on press toggle */}
           <TouchableOpacity onPress={toggleBookmark}>
             <Image
               source={
@@ -30,6 +42,8 @@ const TrendingNewsItem = ({ item }) => {
         <View style={styles.trend}>
           <View style={styles.flex}>
             <Text style={styles.headText}>{item.publisher}</Text>
+
+            {/* icons */}
             <View style={styles.likeIcon}>
               <TouchableOpacity>
                 <Image source={require("../../assets/Like.png")} />
@@ -50,6 +64,12 @@ const TrendingNewsItem = ({ item }) => {
           </View>
         </View>
       </View>
+
+      {showBookmarkMessage && (
+        <View style={styles.messageBox}>
+          <Text style={styles.messageText}>Bookmarked Successfully</Text>
+        </View>
+      )}
     </TouchableOpacity>
   );
 };

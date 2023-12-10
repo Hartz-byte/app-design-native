@@ -121,6 +121,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
+  messageBox: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    right: 10,
+    backgroundColor: "#4CAF50",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  messageText: {
+    color: "white",
+    fontWeight: "bold",
+  },
 });
 
 export default styles;
