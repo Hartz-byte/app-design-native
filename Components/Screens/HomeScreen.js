@@ -5,7 +5,6 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ScrollView,
   FlatList,
 } from "react-native";
 import Following from "../HomeCategoryScreen/Following";
@@ -72,18 +71,14 @@ const HomeScreen = () => {
 
       {/* category selection */}
       <View style={styles.flex}>
-        <ScrollView
+        <FlatList
+          data={categories}
+          keyExtractor={(item) => item}
+          renderItem={renderCategory}
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.categoriesContainer}
-        >
-          <FlatList
-            data={categories}
-            keyExtractor={(item) => item}
-            renderItem={renderCategory}
-            horizontal
-          />
-        </ScrollView>
+        />
         <TouchableOpacity style={styles.filetrIcon}>
           <Image source={require("../../assets/FilterIcon.png")} />
         </TouchableOpacity>
@@ -100,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 25,
     marginRight: 25,
-    marginTop: 40,
+    marginTop: 20,
   },
   hiText: {
     fontWeight: "700",

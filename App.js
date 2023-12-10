@@ -1,9 +1,11 @@
-import * as React from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Image, Text } from "react-native";
+import { Image, Text, View, StatusBar } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import Constants from "expo-constants";
+import * as StatusBarHeight from "react-native-status-bar-height";
 
 import HomeScreen from "./Components/Screens/HomeScreen";
 import HiTvScreen from "./Components/Screens/HiTvScreen";
@@ -62,6 +64,21 @@ const App = () => {
   return (
     // Navigation
     <NavigationContainer>
+      {/* Status bar with gradient color */}
+      <View
+        style={{
+          height: StatusBarHeight.currentHeight,
+          backgroundColor: "transparent",
+        }}
+      >
+        <LinearGradient
+          colors={["#78CEE2", "#01968B"]}
+          style={{ flex: 1, paddingTop: Constants.statusBarHeight }}
+        >
+          <StatusBar translucent backgroundColor="transparent" />
+        </LinearGradient>
+      </View>
+
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
