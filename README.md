@@ -9,4 +9,4 @@ install dependencies, run command -
 npm install -g expo-cli,
 npm install -g expo-cli@latest,
 npm install,
-expo start -c,
+expo start -c
