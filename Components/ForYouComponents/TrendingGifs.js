@@ -6,9 +6,18 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
 const TrendingGifs = () => {
+  const [isLikedArray, setIsLikedArray] = useState([false, false, false]);
+
+  // like toggle
+  const toggleLike = (index) => {
+    const newIsLikedArray = [...isLikedArray];
+    newIsLikedArray[index] = !newIsLikedArray[index];
+    setIsLikedArray(newIsLikedArray);
+  };
+
   // videos data
   const videoData = [
     {
@@ -47,7 +56,7 @@ const TrendingGifs = () => {
       <FlatList
         horizontal
         data={videoData}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View style={styles.videoContainer}>
             {/* image */}
             <Image
@@ -75,8 +84,17 @@ const TrendingGifs = () => {
               <Text style={styles.publisherText}>{item.publisher}</Text>
               <View style={styles.flex}>
                 <View style={styles.flex}>
-                  <TouchableOpacity style={styles.icon1}>
-                    <Image source={require("../../assets/Like.png")} />
+                  <TouchableOpacity
+                    style={styles.icon1}
+                    onPress={() => toggleLike(index)}
+                  >
+                    <Image
+                      source={
+                        isLikedArray[index]
+                          ? require("../../assets/Like2.png")
+                          : require("../../assets/Like.png")
+                      }
+                    />
                   </TouchableOpacity>
                   <Text style={styles.number1}>5</Text>
                 </View>

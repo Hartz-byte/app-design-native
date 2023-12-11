@@ -3,9 +3,14 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 const Auto = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const toggleBookmark = () => {
     setIsBookmarked((prev) => !prev);
+  };
+
+  const toggleLike = () => {
+    setIsLiked((prev) => !prev);
   };
 
   return (
@@ -53,8 +58,14 @@ const Auto = () => {
         <View style={styles.flex}>
           {/* icons */}
           <View style={styles.flex}>
-            <TouchableOpacity>
-              <Image source={require("../../assets/Like.png")} />
+            <TouchableOpacity onPress={toggleLike}>
+              <Image
+                source={
+                  isLiked
+                    ? require("../../assets/Like2.png")
+                    : require("../../assets/Like.png")
+                }
+              />
             </TouchableOpacity>
             <Text style={styles.number}>5</Text>
           </View>

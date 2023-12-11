@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 // Active icon properties
 const ActiveIcon = ({ children, label, focused }) => (
   <LinearGradient
-    colors={focused ? ["red", "red"] : ["transparent", "transparent"]}
+    colors={["transparent", "transparent"]}
     style={{
       borderRadius: 25,
       width: 50,
@@ -27,6 +27,7 @@ const ActiveIcon = ({ children, label, focused }) => (
       justifyContent: "center",
       alignItems: "center",
       marginTop: focused ? -30 : 0,
+      position: "relative",
     }}
   >
     <LinearGradient
@@ -34,13 +35,41 @@ const ActiveIcon = ({ children, label, focused }) => (
       style={{
         borderRadius: 25,
         width: 50,
-        height: 50,
+        height: 55,
         justifyContent: "center",
         alignItems: "center",
+        position: "absolute",
+        top: 0,
+        left: 0,
       }}
     >
-      {children}
-      <Text style={{ color: "black", marginTop: 5, fontSize: 12 }}>
+      {focused && (
+        <Image
+          source={require("./assets/ellipse.png")}
+          style={{
+            position: "absolute",
+            width: 70,
+            height: 70,
+            borderRadius: 25,
+          }}
+        />
+      )}
+      {children && (
+        <Image
+          source={children.props.source}
+          style={{ width: 22, height: 22 }}
+        />
+      )}
+      <Text
+        style={{
+          color: "black",
+          marginTop: 5,
+          fontSize: 10,
+          fontWeight: "500",
+          top: 0,
+          left: 0,
+        }}
+      >
         {label}
       </Text>
     </LinearGradient>

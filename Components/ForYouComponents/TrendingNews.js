@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import styles from "../HomeCategoryScreen/styles";
 
 const TrendingNewsItem = ({ item }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [showBookmarkMessage, setShowBookmarkMessage] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   //bookmark toggle
   const toggleBookmark = () => {
@@ -17,6 +18,11 @@ const TrendingNewsItem = ({ item }) => {
         setShowBookmarkMessage(false);
       }, 2000);
     }
+  };
+
+  //like toggle
+  const toggleLike = () => {
+    setIsLiked((prev) => !prev);
   };
 
   return (
@@ -45,8 +51,14 @@ const TrendingNewsItem = ({ item }) => {
 
             {/* icons */}
             <View style={styles.likeIcon}>
-              <TouchableOpacity>
-                <Image source={require("../../assets/Like.png")} />
+              <TouchableOpacity onPress={toggleLike}>
+                <Image
+                  source={
+                    isLiked
+                      ? require("../../assets/Like2.png")
+                      : require("../../assets/Like.png")
+                  }
+                />
               </TouchableOpacity>
               <Text style={styles.number}> {item.likes} </Text>
             </View>

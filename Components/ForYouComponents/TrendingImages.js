@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,16 @@ import {
 } from "react-native";
 
 const TrendingImages = () => {
+  const [isLikedArray, setIsLikedArray] = useState([false, false, false]);
+
+  // like toggle
+  const toggleLike = (index) => {
+    const newIsLikedArray = [...isLikedArray];
+    newIsLikedArray[index] = !newIsLikedArray[index];
+    setIsLikedArray(newIsLikedArray);
+  };
+
+  //image data
   const imageData = [
     {
       id: "1",
@@ -59,7 +69,7 @@ const TrendingImages = () => {
       <FlatList
         horizontal
         data={imageData}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View>
             <Image
               source={item.imageUrl}
@@ -82,8 +92,14 @@ const TrendingImages = () => {
               </View>
 
               <View style={styles.likeIcon}>
-                <TouchableOpacity>
-                  <Image source={require("../../assets/Like.png")} />
+                <TouchableOpacity onPress={() => toggleLike(index)}>
+                  <Image
+                    source={
+                      isLikedArray[index]
+                        ? require("../../assets/Like2.png")
+                        : require("../../assets/Like.png")
+                    }
+                  />
                 </TouchableOpacity>
                 <Text style={styles.number}> {item.likes} </Text>
               </View>
