@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
 const Video = () => {
   return (
-    <View>
-      <Text>Video</Text>
+    <View style={styles.container}>
+      <Text>Video Page</Text>
     </View>
-  )
-}
+  );
+};
 
-export default Video
+export default Video;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: "40%",
+    marginTop: "80%",
+  },
+});
