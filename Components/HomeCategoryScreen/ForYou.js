@@ -13,6 +13,10 @@ import Auto from "../ForYouComponents/Auto";
 import TrendingVideos from "../ForYouComponents/TrendingVideos";
 import TrendingImages from "../ForYouComponents/TrendingImages";
 import Quotes from "../ForYouComponents/Quotes";
+import TrendingHiReels from "../ForYouComponents/TrendingHiReels";
+import LiveVideos from "../ForYouComponents/LiveVideos";
+import TrendingGifs from "../ForYouComponents/TrendingGifs";
+import Top360Videos from "../ForYouComponents/Top360Videos";
 import styles from "./styles";
 
 const { width } = Dimensions.get("window");
@@ -229,6 +233,85 @@ const ForYou = () => {
 
       {/* auto component */}
       <Auto />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trendind hi reels */}
+      <View style={styles.flex}>
+        <Text style={styles.headlinsText}>Trending HiReels</Text>
+        <TouchableOpacity>
+          <Text style={styles.viewAllText}>View All</Text>
+        </TouchableOpacity>
+      </View>
+      {/* component */}
+      <TrendingHiReels />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending news component 2  */}
+      <FlatList
+        data={trendingNewsData2}
+        renderItem={({ item, index }) => (
+          <TrendingNews key={index} item={{ ...item, index }} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* live videos */}
+      <LiveVideos />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending news component 2  */}
+      <FlatList
+        data={trendingNewsData2}
+        renderItem={({ item, index }) => (
+          <TrendingNews key={index} item={{ ...item, index }} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending gifs */}
+      <TrendingGifs />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending news component 2  */}
+      <FlatList
+        data={trendingNewsData2}
+        renderItem={({ item, index }) => (
+          <TrendingNews key={index} item={{ ...item, index }} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* top 360 videos */}
+      <Top360Videos />
+
+      {/* border */}
+      <View style={styles.border} />
+
+      {/* trending news component 2  */}
+      <FlatList
+        data={trendingNewsData2}
+        renderItem={({ item, index }) => (
+          <TrendingNews key={index} item={{ ...item, index }} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
 
       {/* border */}
       <View style={styles.border} />
