@@ -3,12 +3,17 @@ import React from 'react'
 
 const HiTvScreen = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>HiTvScreen</Text>
     </View>
   )
 }
 
-export default HiTvScreen
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: "40%",
+    marginTop: "100%",
+  },
+});
 
-const styles = StyleSheet.create({})
+export default HiTvScreen

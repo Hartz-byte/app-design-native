@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
 const HiReelScreen = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>HiReelScreen</Text>
     </View>
-  )
-}
+  );
+};
 
-export default HiReelScreen
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: "40%",
+    marginTop: "100%",
+  },
+});
 
-const styles = StyleSheet.create({})
+export default HiReelScreen;

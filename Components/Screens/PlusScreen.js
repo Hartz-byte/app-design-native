@@ -3,12 +3,17 @@ import React from 'react'
 
 const PlusScreen = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>PlusScreen</Text>
     </View>
   )
 }
 
-export default PlusScreen
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: "40%",
+    marginTop: "100%",
+  },
+});
 
-const styles = StyleSheet.create({})
+export default PlusScreen
